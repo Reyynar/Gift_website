@@ -1,87 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
-
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-            background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            text-align:center;
-            color:white;
-        }
-
-        .card{
-            background:rgba(255,255,255,0.15);
-            padding:40px;
-            border-radius:20px;
-            backdrop-filter:blur(10px);
-            max-width:600px;
-        }
-
-        h1{
-            font-size:40px;
-        }
-
-        button{
-            padding:15px 30px;
-            border:none;
-            border-radius:30px;
-            background:white;
-            color:#ff4b7d;
-            font-size:18px;
-            cursor:pointer;
-            margin-top:20px;
-        }
-
-        button:hover{
-            transform:scale(1.05);
-        }
-
-        #letter{
-            display:none;
-            margin-top:20px;
-            font-size:20px;
-            line-height:1.6;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Surprise ❤️</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;overflow:hidden;background:linear-gradient(135deg,#ffd6e7,#ffeecf);display:flex;justify-content:center;align-items:center;height:100vh}
+.screen{display:none;text-align:center;padding:20px}
+.show{display:block}
+button{padding:14px 28px;border:none;border-radius:30px;font-size:20px;cursor:pointer;margin:10px}
+#yes{background:#ff4d88;color:#fff}
+#no{background:#eee}
+#envelope,#gift{font-size:120px;cursor:pointer;animation:bounce 2s infinite}
+#letter{background:#fff;padding:25px;border-radius:20px;max-width:650px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.heart,.sparkle,.flower{position:fixed;top:-40px;font-size:28px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@keyframes bounce{50%{transform:translateY(-15px)}}
+</style>
 </head>
 <body>
 
-<div class="card">
-    <h1>❤️ For Someone Very Special ❤️</h1>
+<div id="q" class="screen show">
+<h1>I have a surprise for you... ❤️</h1>
+<p>Do you want to open it?</p>
+<button id="yes" onclick="goEnvelope()">Yes 💕</button>
+<button id="no" onclick="nope()">No 🙈</button>
+</div>
 
-    <p>I made this little website just for you.</p>
+<div id="env" class="screen">
+<h1>Your Letter Awaits 💌</h1>
+<div id="envelope" onclick="goGift()">💌</div>
+<p>Tap the envelope</p>
+</div>
 
-    <button onclick="showLetter()">
-        Open My Letter 💌
-    </button>
+<div id="giftScreen" class="screen">
+<h1>Your Gift 🎁</h1>
+<div id="gift" onclick="openGift()">🎁</div>
+<p>Tap the gift</p>
+</div>
 
-    <div id="letter">
-        <p>
-            Dear Love,<br><br>
-
-            Every day with you is a gift. Thank you for making my life brighter,
-            happier, and more beautiful. I hope this little surprise makes you smile.
-            ❤️<br><br>
-
-            Love Always.
-        </p>
-    </div>
+<div id="final" class="screen">
+<div id="letter">
+<h2>To Someone Very Special ❤️</h2>
+<p>
+Thank you for being such an amazing person.<br><br>
+You make ordinary days feel extraordinary, and I hope this little surprise makes you smile just as much as you've made me smile.
+<br><br>
+No matter where life takes us, I hope you always remember how appreciated and loved you are.
+<br><br>
+❤️
+</p>
+<p><b>P.S.</b> You have officially been promoted to... <br><br><b>Chief Happiness Officer 😄💕</b></p>
+</div>
 </div>
 
 <script>
-function showLetter(){
-    document.getElementById("letter").style.display="block";
+let yes=document.getElementById("yes");
+function show(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
+ document.getElementById(id).classList.add("show");
+}
+function nope(){
+ alert("🥺 I promise you are going to love it!");
+ let s=parseFloat(getComputedStyle(yes).fontSize);
+ yes.style.fontSize=(s+6)+"px";
+}
+function goEnvelope(){show("env")}
+function goGift(){show("giftScreen")}
+function openGift(){
+ show("final");
+ for(let i=0;i<120;i++){
+   let e=document.createElement("div");
+   let arr=["💖","✨","🌸","🌷","💐"];
+   e.className="heart";
+   e.textContent=arr[Math.floor(Math.random()*arr.length)];
+   e.style.left=Math.random()*100+"vw";
+   e.style.animationDuration=(3+Math.random()*4)+"s";
+   e.style.fontSize=(20+Math.random()*20)+"px";
+   document.body.appendChild(e);
+   setTimeout(()=>e.remove(),7000);
+ }
 }
 </script>
-
 </body>
 </html>
